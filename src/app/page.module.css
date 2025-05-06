@@ -161,8 +161,25 @@ a.secondary {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.logo {
+  display: flex;
+  align-items: center;
 }
+
+.notes {
+  font-style: italic;
+  align-items: center;
+}
+
+.footButtons
+{
+  background-color: var(--button-secondary-hover);
+  border-color: white;
+  color: white;
+}
+
+.footButtons a
+{
+  color: white;
+}
+
