@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import styles from "./page.module.css";
 import Header from "./components/logoHeader.js"
 import ComFooter from "./components/generalFooter.js"
