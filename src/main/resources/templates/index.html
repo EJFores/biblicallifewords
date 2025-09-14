@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-  <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
     <title>Biblical Life Words</title>
     <link rel="icon" type="image/svg+xml" th:href="@{/bible.svg}">
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     <div class="block container verse-details" th:fragment="verse-details">
       <article class="message is-info has-text-centered">
         <div class="message-header">
-          <span class="tag" style="color: yellow;">English Standard Version</span>
+          <span class="tag" style="color: yellow;">ESV</span>
           <p th:text="${book} +' '+ ${chapter} + ':' + ${verse}"></p>
           <button class="button is-outlined is-small"
                   hx-get="/fetchNewVerse"

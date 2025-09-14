@@ -18,6 +18,5 @@ I also included some verses that were helpful to me as well.
 - This project is built with Spring Boot, Thymeleaf, and Bulma CSS. Maven is the dependency manager.
 
 ## Plans for the future
-- add a way to save verse to clipboard
 - find other versions to add other than ESV
 - consider implementing a small ml model to select random verses so long as it can verify the verse actually exists.
