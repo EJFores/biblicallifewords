@@ -64,6 +64,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.main.site.Homepage</mainClass>
+					<executable>true</executable>
 				</configuration>
 			</plugin>
 		</plugins>
