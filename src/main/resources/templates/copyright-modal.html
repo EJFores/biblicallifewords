@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<body>
+<div th:fragment="copyright-modal-active" class="modal is-active" id="copyright-modal">
+  <div class="modal-background"
+       hx-patch="/modal/close"
+       hx-target="#copyright-modal"
+       hx-swap="outerHTML"></div>
+  <div class="modal-content">
+    <div class="box">
+      <p>
+        Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+        Users may not copy or download more than 500 verses of the ESV Bible or more than one half of any book of the ESV Bible.
+        Scripture quotations marked "ESV" are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+        Unless otherwise indicated, all Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+      </p>
+    </div>
+  </div>
+  <button class="modal-close is-large"
+          aria-label="close"
+          hx-patch="/modal/close"
+          hx-target="#copyright-modal"
+          hx-swap="outerHTML"></button>
+</div>
+
+<div th:fragment="copyright-modal-inactive" class="modal" id="copyright-modal">
+  <div class="modal-background"
+       hx-patch="/modal/close"
+       hx-target="#copyright-modal"
+       hx-swap="outerHTML"></div>
+  <div class="modal-content">
+    <div class="box">
+      <p>
+        Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+        Users may not copy or download more than 500 verses of the ESV Bible or more than one half of any book of the ESV Bible.
+        Scripture quotations marked "ESV" are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+        Unless otherwise indicated, all Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+      </p>
+    </div>
+  </div>
+  <button class="modal-close is-large"
+          aria-label="close"
+          hx-patch="/modal/close"
+          hx-target="#copyright-modal"
+          hx-swap="outerHTML"></button>
+</div>
+</body>
+</html>
