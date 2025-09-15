@@ -1,5 +1,5 @@
 # Biblical Life Words 
-www.biblelifewords.org
+biblelifewords.org
 
 ## What is this?
 
