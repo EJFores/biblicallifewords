@@ -163,5 +163,50 @@
     "book": "Psalm",
     "chapter": 23,
     "verse": "6"
+  },
+  {
+      "book": "Deuteronomy",
+      "chapter": 31,
+      "verse": "8"
+  },
+  {
+      "book": "Philippians",
+      "chapter": 4,
+      "verse": "6-7"
+  },
+  {
+    "book": "Psalm",
+    "chapter": 103,
+    "verse": "12"
+  },
+  {
+    "book": "Proverbs",
+    "chapter": 2,
+    "verse": "6"
+  },
+  {
+    "book": "Isaiah",
+    "chapter": 41,
+    "verse": "10"
+  },
+  {
+    "book": "Hebrews",
+    "chapter": 13,
+    "verse": "6"
+  },
+  {
+    "book": "Proverbs",
+    "chapter": 19,
+    "verse": "21"
+  },
+  {
+    "book": "Romans",
+    "chapter": 8,
+    "verse": "28"
+  },
+  {
+    "book": "Philippians",
+    "chapter": 1,
+    "verse": "6"
   }
 ]

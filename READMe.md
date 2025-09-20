@@ -16,7 +16,3 @@ I also included some verses that were helpful to me as well.
 - The ESV translation has a free API that can be used to return verses so it was easy to implement first.
 ##### *What is this project built with?*
 - This project is built with Spring Boot, Thymeleaf, and Bulma CSS. Maven is the dependency manager.
-
-## Plans for the future
-- find other versions to add other than ESV
-- consider implementing a small ml model to select random verses so long as it can verify the verse actually exists.

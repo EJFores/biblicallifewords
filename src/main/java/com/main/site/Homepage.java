@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @SpringBootApplication
@@ -19,10 +19,14 @@ public class Homepage {
     @Autowired
     private VerseGenerator vGen;
 
-    @Value("${api.bible.url}")
-    private String apiUrl;
-    @Value("${api.bible.key}")
-    private String apiKey;
+    @Value("${api.esvbible.url}")
+    private String esvapiUrl;
+    @Value("${api.esvbible.key}")
+    private String esvapiKey;
+    @Value("${api.nltbible.url}")
+    private String nltApiUrl;
+    @Value("${api.nltbible.key}")
+    private String nltApiKey;
 
     public static void main(String[] args)
     {
@@ -34,14 +38,17 @@ public class Homepage {
     {
         VerseReference demo = vGen.randomVerse();
 
-        String text = vAPIs.callEsvVerseAPI(demo,apiUrl, apiKey);
+        String text = vAPIs.callEsvVerseAPI(demo,esvapiUrl, esvapiKey);
 
         model.addAllAttributes(
                 java.util.Map.of(
                         "book", demo.getBook(),
                         "chapter", demo.getChapter(),
                         "verse", demo.getVerse(),
-                        "text", text
+                        "text", text,
+                        "versions", java.util.List.of("ESV", "NLT", "KJV"),
+                        "selectedVersion", "ESV"
+
                 )
         );
 
@@ -49,32 +56,31 @@ public class Homepage {
     }
 
     @GetMapping("/fetchNewVerse")
-    public String writeNewVerseToHomepage(Model model)
+    public String writeNewVerseToHomepage(@RequestParam(defaultValue = "ESV") String version, Model model)
     {
         VerseReference newVerse = vGen.randomVerse();
+        String text;
 
-        String text = vAPIs.callEsvVerseAPI(newVerse,apiUrl,apiKey);
+        if ("ESV".equals(version)) {
+            text = vAPIs.callEsvVerseAPI(newVerse, esvapiUrl, esvapiKey);
+        } else if ("NLT".equals(version) || "KJV".equals(version)) {
+            text = vAPIs.callNltVerseAPI(newVerse, nltApiUrl, nltApiKey, version);
+        } else {
+            text = vAPIs.callEsvVerseAPI(newVerse, esvapiUrl, esvapiKey);
+        }
 
         model.addAllAttributes(
                 java.util.Map.of(
                         "book", newVerse.getBook(),
                         "chapter", newVerse.getChapter(),
                         "verse", newVerse.getVerse(),
-                        "text", text
+                        "text", text,
+                        "versions", java.util.List.of("ESV", "NLT", "KJV"),
+                        "selectedVersion", version
                 )
         );
 
         return "index :: verse-details";
-    }
-
-    @GetMapping("/modal/copyright")
-    public String showCopyrightModal() {
-        return "/copyright-modal :: copyright-modal-active";
-    }
-
-    @PatchMapping("/modal/close")
-    public String closeCopyrightModal() {
-        return "/copyright-modal :: copyright-modal-inactive";
     }
 
 }

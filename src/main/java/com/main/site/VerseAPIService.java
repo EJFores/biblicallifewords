@@ -8,8 +8,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Objects;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 @Service
 public class VerseAPIService {
@@ -37,10 +39,40 @@ public class VerseAPIService {
 
             return Objects.requireNonNull(response.getBody()).getPassages().getFirst().trim();
         } catch (Exception e) {
-            logger.error("Error calling the verse API: {}", e.getMessage());
+            logger.error("Error calling the ESV verse API: {}", e.getMessage());
             return "Looks like there was an error fetching the verse. Please try again later. :(";
         }
     }
+
+    public String callNltVerseAPI(VerseReference ref, String apiUrl, String apiKey, String version) {
+        String query = ref.toString();
+        String vc = "version=" + version;
+        String url = apiUrl + "?" + vc +"&key="+apiKey+ "&ref=" + query;
+
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpEntity<String> entity = new HttpEntity<>(new HttpHeaders());
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    String.class
+            );
+
+            // Parse HTML and extract verse text
+            Document doc = Jsoup.parse(Objects.requireNonNull(response.getBody()));
+            Element bibleTextDiv = doc.getElementById("bibletext");
+
+            Objects.requireNonNull(bibleTextDiv).select("a.a-tn, span.tn, span.vn, h2").remove();
+            return bibleTextDiv.text().trim();
+
+        } catch (Exception e) {
+            logger.error("Error calling the NLT verse API: {}", e.getMessage());
+            return "Looks like there was an error fetching the verse. Please try again later. :(";
+        }
+    }
+
 
 
 }

@@ -18,12 +18,23 @@
     <div class="block container verse-details" th:fragment="verse-details">
       <article class="message is-info has-text-centered">
         <div class="message-header">
-          <span class="tag" style="color: yellow;">ESV</span>
+          <div class="select is-rounded is-info is-small">
+            <label>
+              <select id="version-select" name="version">
+                <option th:each="version : ${versions}"
+                        th:value="${version}"
+                        th:text="${version}"
+                        th:selected="${version == (selectedVersion ?: 'ESV')}">
+                </option>
+              </select>
+            </label>
+          </div>
           <p th:text="${book} +' '+ ${chapter} + ':' + ${verse}"></p>
           <button class="button is-outlined is-small"
                   hx-get="/fetchNewVerse"
                   hx-target=".verse-details"
-                  hx-swap="outerHTML">
+                  hx-swap="outerHTML"
+                  hx-include="#version-select">
             Get a new verse
           </button>
         </div>
@@ -31,52 +42,47 @@
       </article>
     </div>
     <footer class="has-text-centered">
-      <div class="field is-grouped is-grouped-centered buttons are-small">
-        <p class="control">
-          <a
-                  class="button"
-                  href="http://ethanflores.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-          >Made by EJF</a>
-        </p>
-        <p class="control">
-          <a
-                  class="button"
-                  href="https://esv.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-          >esv.org</a>
-        </p>
-        <p class="control">
-          <button class="button"
-                  hx-get="/modal/copyright"
-                  hx-target="#copyright-modal"
-                  hx-swap="outerHTML">
-            ESV Copyright
-          </button>
-          <div class="modal" id="copyright-modal">
-            <div class="modal-background"
-                 hx-patch="/modal/close"
-                 hx-target="#copyright-modal"
-                 hx-swap="outerHTML"></div>
-            <div class="modal-content">
-              <div class="box">
-              <p>
-                Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
-                Users may not copy or download more than 500 verses of the ESV Bible or more than one half of any book of the ESV Bible.
-                  Scripture quotations marked "ESV" are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
-                Unless otherwise indicated, all Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
-              </p>
-            </div>
-          </div>
-            <button class="modal-close is-large"
-                    aria-label="close"
-                    hx-patch="/modal/close"
-                    hx-target="#copyright-modal"
-                    hx-swap="outerHTML"></button>
-          </div>
+      <a
+              class="button is-small block"
+              href="http://ethanflores.me"
+              target="_blank"
+              rel="noopener noreferrer"
+      >Made by EJF</a>
+      <div class="block tabs is-small is-centered is-toggle is-toggle-rounded" id="copyright-tabs">
+        <ul>
+          <li class="is-active"><a onclick="activateTab(this)">ESV Copyright</a></li>
+          <li><a onclick="activateTab(this)">NLT Copyright</a></li>
+        </ul>
       </div>
+      <div id="tab-contents" class="block">
+        <div id="esv-content" class="tab-content">
+          Scripture quotations marked “ESV” are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers.
+          Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license.
+          The ESV may not be translated into any other language.
+        </div>
+        <div id="nlt-content" class="tab-content" style="display:none;">
+          Scripture quotations marked (NLT) are taken from the Holy Bible, New Living Translation, copyright ©1996, 2004, 2015 by Tyndale House Foundation.
+          Used by permission of Tyndale House Publishers, Carol Stream, Illinois 60188. All rights reserved.
+        </div>
+      </div>
+      <script>
+        function activateTab(element) {
+          const tabs = document.querySelectorAll('#copyright-tabs ul li');
+          tabs.forEach(tab => tab.classList.remove('is-active'));
+          element.parentElement.classList.add('is-active');
+
+          // Show/hide tab contents
+          const contents = {
+            'ESV Copyright': 'esv-content',
+            'NLT Copyright': 'nlt-content'
+          };
+          Object.values(contents).forEach(id => {
+            document.getElementById(id).style.display = 'none';
+          });
+          const selected = element.textContent.trim();
+          document.getElementById(contents[selected]).style.display = 'block';
+        }
+      </script>
     </footer>
   </body>
 </html>
